@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+  <link rel='stylesheet' href='styles.css' />
+</head>
+
+<body>
+  <button id="button">Make a new grid</button>
+  <div id="container" class="container"></div>
+  </div>
+  <script>
+    const container = document.querySelector("#container");
+    const button = document.querySelector("#button");
+
+    createGrid(16);
+
+    function createGrid(squarenum) {
+      let squaresize = 600 / squarenum;
+      for (let i = 0; i < squarenum * squarenum; i++) {
+        const div = document.createElement('div');
+        div.classList.add('grid');
+        div.style.cssText = `background:whitesmoke; height:${squaresize}px ; width:${squaresize}px;`;
+        container.appendChild(div);
+      }
+      addhover('.grid');
+    }
+
+    function addhover(id) {
+      let divs = document.querySelectorAll(id);
+      divs.forEach((div) => {
+        div.addEventListener("mousemove", (e) => {
+         const randomColor=`rgb(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)})`;
+          div.style.backgroundColor = randomColor;
+        })
+      })
+    }
+
+    button.addEventListener('click', popUp);
+
+    function popUp() {
+      let squarenum;
+      do {
+        squarenum = prompt("Enter number of squares per side for the new grid (1-100)", "");
+      } while (squarenum > 100 || squarenum < 0);
+      container.innerHTML = "";
+      createGrid(squarenum);
+    }
+
+  </script>
+</body>
+
+</html>
